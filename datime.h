@@ -43,22 +43,22 @@ class DaTime{
         void dt_Display();
 
         /* Comparison functions  */
-        Boolean dt_Equal(DaTime &b);
-        Boolean dt_NotEqual(DaTime &b);
-        Boolean dt_LessThan(DaTime &b);
-        Boolean dt_GreaterThan(DaTime &b);
-        Boolean dt_LessThanOrEqual(DaTime &b);
-        Boolean dt_GreaterThanOrEqual(DaTime &b);
-        Boolean dt_Overlap(DaTime &b);
-        Boolean dt_NonOverlap(DaTime &b);
+        Boolean dt_Equal(DaTime b);
+        Boolean dt_NotEqual(DaTime b);
+        Boolean dt_LessThan(DaTime b);
+        Boolean dt_GreaterThan(DaTime b);
+        Boolean dt_LessThanOrEqual(DaTime b);
+        Boolean dt_GreaterThanOrEqual(DaTime b);
+        Boolean dt_Overlap(DaTime b);
+        Boolean dt_NonOverlap(DaTime b);
 
         /* Manipulation functions  */
         void dt_ChangeDay(Day);
         void dt_ChangeDuration(int);
         void dt_ChangeStart(Time);
 
-        void dt_Merge(DaTime &b);
-        int dt_Difference(DaTime &b);
+        void dt_Merge(DaTime b);
+        int dt_Difference(DaTime b);
 
     private:
         Day day;

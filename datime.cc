@@ -196,7 +196,7 @@ void DaTime :: dt_Display()
 
 
 /* Comparison functions  */
-Boolean DaTime :: dt_Equal(DaTime &b)
+Boolean DaTime :: dt_Equal(DaTime b)
 {
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_Equal\n");
@@ -209,7 +209,7 @@ Boolean DaTime :: dt_Equal(DaTime &b)
 #endif
 }
 
-Boolean DaTime :: dt_NotEqual(DaTime &b)
+Boolean DaTime :: dt_NotEqual(DaTime b)
 {
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_NotEqual\n");
@@ -223,7 +223,7 @@ Boolean DaTime :: dt_NotEqual(DaTime &b)
 #endif
 }
 
-Boolean DaTime :: dt_LessThan(DaTime &b)
+Boolean DaTime :: dt_LessThan(DaTime b)
 {
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_LessThan\n");
@@ -256,7 +256,7 @@ Boolean DaTime :: dt_LessThan(DaTime &b)
 #endif
 }
 
-Boolean DaTime :: dt_GreaterThan(DaTime &b)
+Boolean DaTime :: dt_GreaterThan(DaTime b)
 {
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_GreaterThan\n");
@@ -304,7 +304,7 @@ Boolean DaTime :: dt_GreaterThan(DaTime &b)
 #endif
 }
 
-Boolean DaTime :: dt_LessThanOrEqual( DaTime &b)
+Boolean DaTime :: dt_LessThanOrEqual( DaTime b)
 {
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_LessThanOrEqual\n");
@@ -353,7 +353,7 @@ Boolean DaTime :: dt_LessThanOrEqual( DaTime &b)
 #endif
 }
 
-Boolean DaTime :: dt_GreaterThanOrEqual(DaTime &b)
+Boolean DaTime :: dt_GreaterThanOrEqual(DaTime b)
 {
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_GreaterThanOrEqual\n");
@@ -402,7 +402,7 @@ Boolean DaTime :: dt_GreaterThanOrEqual(DaTime &b)
 #endif
 }
 
-Boolean DaTime :: dt_Overlap(DaTime &b)
+Boolean DaTime :: dt_Overlap(DaTime b)
 {
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_Overlap\n");
@@ -445,7 +445,7 @@ Boolean DaTime :: dt_Overlap(DaTime &b)
 #endif
 }
 
-Boolean DaTime :: dt_NonOverlap(DaTime &b)
+Boolean DaTime :: dt_NonOverlap(DaTime b)
 {
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_NonOverlap\n");
@@ -523,7 +523,7 @@ void DaTime :: dt_ChangeStart( Time newstart)
 }
 
 
-void DaTime :: dt_Merge( DaTime &b){  
+void DaTime :: dt_Merge( DaTime b){  
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_Merge\n");
 #endif
@@ -542,7 +542,7 @@ void DaTime :: dt_Merge( DaTime &b){
 #endif
 }
 
-int DaTime :: dt_Difference(DaTime &b)
+int DaTime :: dt_Difference(DaTime b)
 {
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_Difference\n");
@@ -564,11 +564,6 @@ int DaTime :: dt_Difference(DaTime &b)
         case 'r':  bday = 4;
         case 'f':  bday = 5;
     }
-    /*if(!dt_LessThan){
-        DaTime tmp = a;
-        a = b;
-        b = tmp;
-    }*/
     check =  bday - aday;
     while(check){
         hour += 24;

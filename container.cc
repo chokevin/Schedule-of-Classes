@@ -137,7 +137,26 @@ void Container :: cont_makeAppt(){
     time.dt_SetEnd(timer);
     appoint.appt_setPeriod(time);
     this->cont_setAppt(appoint);
-    count++;
+    if(count == 0){
+        cout << "Appointment has been added!" << endl;
+        count++;
+    }
+    if(count > 0 && conflict(count)){
+        cout << "There is an appointment conflict!" << endl;
+    }
+    if(count > 0 && !conflict(count)){
+        cout << "Appointment has been added!" << endl;
+        count++;
+    }
+}
+
+bool Container :: conflict(int count){
+    for(int i= 0; i < count; i++){
+        if(Schedule[count].appt_getPeriod().dt_Overlap(Schedule[i].appt_getPeriod())){
+            return true;
+        }
+    }
+    return false;
 }
 
 void Container :: cont_setAppt(Appt appoint){
@@ -146,6 +165,7 @@ void Container :: cont_setAppt(Appt appoint){
     Schedule[count].appt_setPeriod(appoint.appt_getPeriod());
     cout << Schedule[count].appt_getName() << endl;
     Schedule[count].appt_displayPeriod();
+    
 }
 void Container :: cont_findAppt(){
 

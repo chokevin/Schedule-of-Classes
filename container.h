@@ -35,6 +35,7 @@ class Container{
         void cont_changeStart(int);
         void cont_changeEnd(int);
         void cont_disp();
+        bool conflict(int);
         void cont_setSchedule(vector <Appt> &Sch);
         void cont_setCount(int count);
         void cont_setAppt(Appt);    

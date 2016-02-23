@@ -52,15 +52,15 @@ class Time{
         void time_Display();
 
         /* Comparison functions  */
-        Boolean time_Equal(Time &b);
-        Boolean time_NotEqual( Time &b);
-        Boolean time_LessThan( Time &b);
-        Boolean time_GreaterThan( Time &b);
-        Boolean time_LessThanOrEqual(Time &b);
-        Boolean time_GreaterThanOrEqual(Time &b);
+        Boolean time_Equal(Time b);
+        Boolean time_NotEqual( Time b);
+        Boolean time_LessThan( Time b);
+        Boolean time_GreaterThan( Time b);
+        Boolean time_LessThanOrEqual(Time b);
+        Boolean time_GreaterThanOrEqual(Time b);
 
         /* Manipulation functions  */
         void time_Add(int minutes);
-        int time_Difference(Time &b);
+        int time_Difference(Time b);
 };
 #endif

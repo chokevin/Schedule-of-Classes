@@ -25,33 +25,6 @@ Time :: Time(int hour, int minute){
     this->time_SetHour(hour);
     this->time_SetMinute(minute);
 }
-/*Time :: time_Init(Time &t, int hour, int minute)
-{
-	#ifdef DEBUG
-	fprintf(stderr, "\tEnter time_Init\n");
-	#endif
-
-	time_SetHour(t, hour);
-	time_SetMinute(t, minute);
-
-	#ifdef DEBUG
-	fprintf(stderr, "\tExit time_Init\n");
-	#endif
-}
-
-void Time :: time_InitSingle(Time &t, int hrmin)
-{
-	#ifdef DEBUG
-	fprintf(stderr, "\tEnter time_InitSingle\n");
-	#endif
-
-	time_SetHour(t, hrmin/100);
-	time_SetMinute(t, hrmin%100);
-
-	#ifdef DEBUG
-	fprintf(stderr, "\tExit time_InitSingle\n");
-	#endif
-} */
 
 void Time :: time_Clear()
 {
@@ -81,55 +54,6 @@ void Time :: time_Copy(Time source)
 	#endif
 }
 
-/* Accessor functions  */
-/*inline int Time :: time_GetHour()
-{
-	#ifdef DEBUG
-	fprintf(stderr, "\tExecute time_GetHour\n");
-	#endif
-
-	return hour;
-}
-*/
-/*
-inline int Time :: time_GetMinute()
-{
-	#ifdef DEBUG
-	fprintf(stderr, "\tExecute time_GetMinute\n");
-	#endif
-
-	return minute;
-}
-*/
-/* Mutator functions  */
-/*
-inline void Time :: time_SetHour(int nhour)
-{
-	 #ifdef DEBUG
-	fprintf(stderr, "\tEnter time_SetHour\n");
-	#endif
-
-    hour = nhour;
-
-	#ifdef DEBUG
-	fprintf(stderr, "\tExit time_SetHour\n");
-	#endif 
-}
-*/
-/*
-inline void Time :: time_SetMinute(int min)
-{
-	#ifdef DEBUG
-	fprintf(stderr, "\tEnter time_SetMinute\n");
-	#endif 
-
-	minute = min;
-
-	#ifdef DEBUG
-	fprintf(stderr, "\tExit time_SetMinute\n");
-	#endif 
-}
-*/
 /* Display functions  */
 void Time :: time_Display()
 {
@@ -145,7 +69,7 @@ void Time :: time_Display()
 }
 
 /* Comparison functions  */
-Boolean Time ::  time_Equal(Time &b)
+Boolean Time ::  time_Equal(Time b)
 {
 	#ifdef DEBUG
 	fprintf(stderr, "\tEnter time_Equal\n");
@@ -160,7 +84,7 @@ Boolean Time ::  time_Equal(Time &b)
     #endif
 }
 
-Boolean Time :: time_NotEqual(Time &b)
+Boolean Time :: time_NotEqual(Time b)
 {
 	#ifdef DEBUG
 	fprintf(stderr, "\tEnter time_NotEqual\n");
@@ -175,7 +99,7 @@ Boolean Time :: time_NotEqual(Time &b)
 	#endif
 }
 
-Boolean Time :: time_LessThan(Time &b)
+Boolean Time :: time_LessThan(Time b)
 {
 	#ifdef DEBUG
 	fprintf(stderr, "\tEnter time_LessThan\n");
@@ -191,7 +115,7 @@ Boolean Time :: time_LessThan(Time &b)
 	#endif
 }
 
-Boolean Time :: time_GreaterThan(Time &b)
+Boolean Time :: time_GreaterThan(Time b)
 {
 	#ifdef DEBUG
 	fprintf(stderr, "\tEnter time_GreaterThan\n");
@@ -207,7 +131,7 @@ Boolean Time :: time_GreaterThan(Time &b)
 	#endif
 }
 
-Boolean Time :: time_LessThanOrEqual(Time &b)
+Boolean Time :: time_LessThanOrEqual(Time b)
 {
 	#ifdef DEBUG
 	fprintf(stderr, "\tEnter time_LessThanOrEqual\n");
@@ -224,7 +148,7 @@ Boolean Time :: time_LessThanOrEqual(Time &b)
 	#endif
 }
 
-Boolean Time :: time_GreaterThanOrEqual(Time &b)
+Boolean Time :: time_GreaterThanOrEqual(Time b)
 {
 	#ifdef DEBUG
 	fprintf(stderr, "\tEnter time_GreaterThanOrEqual\n");
@@ -251,21 +175,12 @@ void Time :: time_Add( int min)
         minute -= 60;
         hour += 1;
     }
-        /*minutes += this->time_GetMinute();
-        while(minutes > 60){
-            minutes -= 60;
-            time_SetMinute(a, minutes);
-            hour = time_GetHour(a) + 1;
-            time_SetHour(a, hour);
-        }
-        return a;
-        */
 	#ifdef DEBUG
 	fprintf(stderr, "\tExit time_Add\n");
 	#endif
 }
 
-int Time :: time_Difference(Time &b)
+int Time :: time_Difference(Time b)
 {
 	#ifdef DEBUG
 	fprintf(stderr, "\tEnter time_Difference\n");
