@@ -141,10 +141,10 @@ void Container :: cont_makeAppt(){
         cout << "Appointment has been added!" << endl;
         count++;
     }
-    if(count > 0 && conflict(count)){
+    else if(count > 0 && conflict(count)){
         cout << "There is an appointment conflict!" << endl;
     }
-    if(count > 0 && !conflict(count)){
+    else if(count > 0 && !conflict(count)){
         cout << "Appointment has been added!" << endl;
         count++;
     }
@@ -378,9 +378,9 @@ void Container :: cont_changeEnd(int i){
 
 
 void Container :: cont_disp(){
-    for(int i = 0; i < count; i++){
         cout << "\t\tYour Schedule\t\t" << endl;
         cout << "_______________________________________________________________________" << endl;
+    for(int i = 0; i < count; i++){  
         Schedule[i].appt_displayAppt(i+1);
     }
 }
