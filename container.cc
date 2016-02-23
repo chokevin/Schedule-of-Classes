@@ -343,7 +343,7 @@ void Container :: cont_changeName(int i){
     string n;
     cout << "Input new name" << endl;
     cin >> n;
-    Schedule[i].appt_setName(n);
+    Schedule[i-1].appt_setName(n);
 }
 
 void Container :: cont_changeDay(int i){
