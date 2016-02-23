@@ -350,7 +350,7 @@ void Container :: cont_changeDay(int i){
     Day day;
     cout << "Input new day" << endl;
     cin >> day;
-    (Schedule[i].appt_getPeriod()).dt_SetDay(day);
+    (Schedule[i-1].appt_getPeriod()).dt_SetDay(day);
 }
 
 void Container :: cont_changeStart(int i){
@@ -362,7 +362,7 @@ void Container :: cont_changeStart(int i){
     cout << "Input new start minute" << endl;
     cin >> time;
     Start.time_SetMinute(time);
-    (Schedule[i].appt_getPeriod()).dt_SetStart(Start);
+    (Schedule[i-1].appt_getPeriod()).dt_SetStart(Start);
 }
 
 void Container :: cont_changeEnd(int i){
@@ -374,7 +374,7 @@ void Container :: cont_changeEnd(int i){
     cout << "Input new End minute" << endl;
     cin >> time;
     End.time_SetMinute(time);
-    (Schedule[i].appt_getPeriod()).dt_SetEnd(End);
+    (Schedule[i-1].appt_getPeriod()).dt_SetEnd(End);
 }
 
 
