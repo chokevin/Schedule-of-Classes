@@ -5,6 +5,7 @@
 #include <vector>
 #ifndef CONTAINER
 #define CONTAINER
+#define MAX_SIZE 14
 using namespace std;
 class Appt{
     public:
@@ -21,12 +22,12 @@ private:
 };
 class Container{
     public:
-        Container(vector <Appt> Schedule = vector<Appt>(14), int count = 0);
-        void cont_makeAppt();
-        void cont_findAppt();
+        Container(vector <Appt> Schedule = vector<Appt>(MAX_SIZE), int count = 0);
         void cont_findByName();
         void cont_findByDay();
         void cont_findByTime();
+        void cont_makeAppt();
+        void cont_findAppt();
         void cont_cancelAppt();
         void cont_changeAppt();
         void cont_disp();

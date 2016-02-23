@@ -247,11 +247,37 @@ void Container :: cont_findByTime(){
 
 
 void Container :: cont_cancelAppt(){
+    int i;
+    bool flag = false;
+    cout << "Which appointment do you want to cancel?" << endl;
+    while(!flag){
+        cin >> i;
+        if(i < 0 || i > count || i > MAX_SIZE){
+            cout << "This is not a valid appointment to cancel. Please choose an appointment less than " << count << endl;
+        }
+        else{
+            flag = true;
+        }
+    }
+    for(i; i<count; i++){
+        Schedule[i] = Schedule[i+1];
+    }
+    count--;
 }
 
 void Container :: cont_changeAppt(){
+    int i;
+    cout << "Which appointment do you want to change?" << endl;
+    cin >> i;
+      
 }
 
+
 void Container :: cont_disp(){
+    for(int i = 0; i < count; i++){
+        cout << "\t\tYour Schedule\t\t" << endl;
+        cout << "_______________________________________________________________________" << endl;
+        Schedule[i].appt_displayAppt(i+1);
+    }
 }
 
