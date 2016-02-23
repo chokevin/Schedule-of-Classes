@@ -281,25 +281,25 @@ void Container :: cont_changeAppt(){
     while(!flag){
         switch(input){
         case 'n':
-            this->cont_changeName();
+            this->cont_changeName(i);
             cout << "Do you want to change something else? (press 'q' to cancel)" 
                 << endl;
             cin >> input;
             break;
         case 'd':
-            this->cont_changeDay();
+            this->cont_changeDay(i);
             cout << "Do you want to change something else? (press 'q' to cancel)"
                 << endl;
             cin >> input;
             break;
         case 's':
-            this->cont_changeStart();
+            this->cont_changeStart(i);
             cout << "Do you want to change something else? (press 'q' to cancel)" 
                 << endl;
             cin >> input;
             break;
         case 'e':
-            this->cont_changeEnd();
+            this->cont_changeEnd(i);
             cout << "Do you want to change something else? (press 'q' to cancel)" 
                 << endl;
             cin >> input;
@@ -318,16 +318,42 @@ void Container :: cont_changeAppt(){
     }
 }
 
-void Container :: cont_changeName(){
+void Container :: cont_changeName(int i){
+    string n;
+    cout << "Input new name" << endl;
+    cin >> n;
+    Schedule[i].appt_setName(n);
 }
 
-void Container :: cont_changeDay(){
+void Container :: cont_changeDay(int i){
+    Day day;
+    cout << "Input new day" << endl;
+    cin >> day;
+    (Schedule[i].appt_getPeriod()).dt_SetDay(day);
 }
 
-void Container :: cont_changeStart(){
+void Container :: cont_changeStart(int i){
+    Time Start;
+    int time;
+    cout << "Input new start hour" << endl;
+    cin >> time;
+    Start.time_SetHour(time);
+    cout << "Input new start minute" << endl;
+    cin >> time;
+    Start.time_SetMinute(time);
+    (Schedule[i].appt_getPeriod()).dt_SetStart(Start);
 }
 
-void Container :: cont_changeEnd(){
+void Container :: cont_changeEnd(int i){
+    Time End;
+    int time;
+    cout << "Input new End hour" << endl;
+    cin >> time;
+    End.time_SetHour(time);
+    cout << "Input new End minute" << endl;
+    cin >> time;
+    End.time_SetMinute(time);
+    (Schedule[i].appt_getPeriod()).dt_SetEnd(End);
 }
 
 
