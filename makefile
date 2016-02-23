@@ -19,4 +19,4 @@ clean:
 	rm -f *.o
 
 real_clean: clean
-	rm -f datest
+	rm -f schedule

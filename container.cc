@@ -20,7 +20,6 @@ void Appt :: appt_setPeriod(DaTime prd){
     period.dt_SetDay(prd.dt_GetDay());
     period.dt_SetStart(prd.dt_GetStart());
     period.dt_SetEnd(prd.dt_GetEnd());
-    //period.dt_SetDuration(prd.dt_GetDuration());
 }
 
 string Appt :: appt_getName(){
@@ -42,8 +41,6 @@ void Appt :: appt_displayAppt(int count){
 }
 
 Container :: Container(vector <Appt> Sch, int cnt){
-    //    this->cont_setSchedule(Sch);
-    //Schedule = Sch;
     this->cont_setSchedule(Sch);
     this->cont_setCount(cnt);
 }
@@ -267,9 +264,70 @@ void Container :: cont_cancelAppt(){
 
 void Container :: cont_changeAppt(){
     int i;
+    char input;
+    bool flag = false;
     cout << "Which appointment do you want to change?" << endl;
-    cin >> i;
-      
+    while(!flag){
+        cin >> i;
+         if(i < 0 || i > count || i > MAX_SIZE){
+             cout << "This is not a valid appointment to cancel. Please choose an appointment less than " << count << endl;
+        }
+        else{
+            flag = true;
+        }
+    }
+    cout << "Would you like to edit the (N)ame, (D)ay, (S)tart Time, or (E)nd Time?" << endl;
+    flag = false;
+    while(!flag){
+        switch(input){
+        case 'n':
+            this->cont_changeName();
+            cout << "Do you want to change something else? (press 'q' to cancel)" 
+                << endl;
+            cin >> input;
+            break;
+        case 'd':
+            this->cont_changeDay();
+            cout << "Do you want to change something else? (press 'q' to cancel)"
+                << endl;
+            cin >> input;
+            break;
+        case 's':
+            this->cont_changeStart();
+            cout << "Do you want to change something else? (press 'q' to cancel)" 
+                << endl;
+            cin >> input;
+            break;
+        case 'e':
+            this->cont_changeEnd();
+            cout << "Do you want to change something else? (press 'q' to cancel)" 
+                << endl;
+            cin >> input;
+            break;
+        case 'q':
+            flag = true;
+            break;
+        default:
+            cout << "Please pick a valid command (n,d,s,e,q)" << endl;
+            cout << 
+                "Would you like to edit the (N)ame, (D)ay, (S)tart Time, or (E)nd Time?" 
+                << endl;
+            cin >> input;
+            break;
+        }
+    }
+}
+
+void Container :: cont_changeName(){
+}
+
+void Container :: cont_changeDay(){
+}
+
+void Container :: cont_changeStart(){
+}
+
+void Container :: cont_changeEnd(){
 }
 
 

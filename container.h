@@ -30,6 +30,10 @@ class Container{
         void cont_findAppt();
         void cont_cancelAppt();
         void cont_changeAppt();
+        void cont_changeName();
+        void cont_changeDay();
+        void cont_changeStart();
+        void cont_changeEnd();
         void cont_disp();
         void cont_setSchedule(vector <Appt> &Sch);
         void cont_setCount(int count);
