@@ -297,6 +297,7 @@ void Container :: cont_changeAppt(){
         }
     }
     cout << "Would you like to edit the (N)ame, (D)ay, (S)tart Time, or (E)nd Time?" << endl;
+    cin >> input;
     flag = false;
     while(!flag){
         switch(input){
