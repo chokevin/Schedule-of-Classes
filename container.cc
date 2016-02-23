@@ -95,10 +95,22 @@ void Container :: cont_makeAppt(){
     }
     time.dt_SetDay(day);
     cout << "What is the Start Time Hour?" << endl;
-    cin >> num;
+    do{
+        cin >> num;
+        if(num < 0 || num > 23){
+            cout << "Not a valid Hour.. Please use numbers from 0 to 23" << endl;
+            cout << "What is the Start Time Hour?" << endl;
+        }
+    } while(num > 23 || num < 0);
     timer.time_SetHour(num);
     cout << "What is the Start Time Minute?" << endl;
-    cin >> num;
+        do{
+            cin >> num;
+            if(num < 0 || num > 60){
+                cout << "Not a valid Minute... Please use numbers from 0 to 59" << endl;
+                cout << "What is the Start Time Minute?" << endl;
+            }
+        } while(num < 0 || num > 60);
     timer.time_SetMinute(num);
     time.dt_SetStart(timer);
     cout << "What is the End Time Hour?" << endl;
@@ -113,13 +125,13 @@ void Container :: cont_makeAppt(){
 }
 
 void Container :: cont_setAppt(Appt appoint){
-    cout << "in function setAppt()" << endl;
     cout << Schedule[count].appt_getName();
     Schedule[count].appt_setName(appoint.appt_getName());
     Schedule[count].appt_setPeriod(appoint.appt_getPeriod());
     //Schedule[count]Appt(appoint.appt_getName(),appoint.appt_getPeriod());
     cout << Schedule[count].appt_getName() << endl;
     Schedule[count].appt_displayPeriod();
+    count++;
 }
 void Container :: cont_findAppt(){
 }

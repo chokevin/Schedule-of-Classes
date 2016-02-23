@@ -12,6 +12,9 @@ Display :: Display(char input){
 
 void Display :: init_Menu(){
     bool flag = false;
+    cout << endl << endl << endl << endl << endl << endl << endl << endl;
+    cout << "\t\t\tBuild Your Schedule\t\t\t" << endl;
+    cout << "________________________________________________________________________________" << endl << endl << endl;
     cout << "-  (M)ake an Appointment" << endl << endl;
     cout << "-  (F)ind an Appointment" << endl << endl;
     cout << "-  (C)ancel an Appointment" << endl << endl;
@@ -28,6 +31,7 @@ void Display :: selection(){
         switch(input){
             case 'm':
                 cout << "Making a new Appointment" << endl;
+                cout << "________________________________________________________________________________" << endl << endl << endl;
                 appt.cont_makeAppt();
                 this->init_Menu();
                 break;
