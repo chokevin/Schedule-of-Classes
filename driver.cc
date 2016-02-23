@@ -21,5 +21,6 @@
 
 int main(){
     Display disp;
-    disp.init_Menu();
+    Container appt;
+    disp.init_Menu(appt);
 }

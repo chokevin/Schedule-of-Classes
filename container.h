@@ -14,6 +14,7 @@ class Appt{
         DaTime appt_getPeriod();
         void appt_setPeriod(DaTime);
         void appt_displayPeriod();
+        void appt_displayAppt(int );
 private:
         string name;
         DaTime period;
@@ -23,6 +24,9 @@ class Container{
         Container(vector <Appt> Schedule = vector<Appt>(14), int count = 0);
         void cont_makeAppt();
         void cont_findAppt();
+        void cont_findByName();
+        void cont_findByDay();
+        void cont_findByTime();
         void cont_cancelAppt();
         void cont_changeAppt();
         void cont_disp();

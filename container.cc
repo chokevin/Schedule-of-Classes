@@ -35,6 +35,12 @@ void Appt :: appt_displayPeriod(){
     period.dt_Display();
 }
 
+void Appt :: appt_displayAppt(int count){
+    cout << count << ' ';
+    cout << name << ' ';
+    period.dt_Display();
+}
+
 Container :: Container(vector <Appt> Sch, int cnt){
     //    this->cont_setSchedule(Sch);
     //Schedule = Sch;
@@ -104,37 +110,141 @@ void Container :: cont_makeAppt(){
     } while(num > 23 || num < 0);
     timer.time_SetHour(num);
     cout << "What is the Start Time Minute?" << endl;
-        do{
-            cin >> num;
-            if(num < 0 || num > 60){
-                cout << "Not a valid Minute... Please use numbers from 0 to 59" << endl;
-                cout << "What is the Start Time Minute?" << endl;
-            }
-        } while(num < 0 || num > 60);
+    do{
+        cin >> num;
+        if(num < 0 || num > 60){
+            cout << "Not a valid Minute... Please use numbers from 0 to 59" << endl;
+            cout << "What is the Start Time Minute?" << endl;
+        }
+    } while(num < 0 || num > 60);
     timer.time_SetMinute(num);
     time.dt_SetStart(timer);
     cout << "What is the End Time Hour?" << endl;
-    cin >> num;
+    do{
+        cin >> num;
+        if(num < 0 || num > 23){
+            cout << "Not a valid hour... Please use numbers from 0 to 23" << endl;
+            cout << "What is the End Time Hour?" << endl;
+        }
+    } while(num > 23 || num < 0);
     timer.time_SetHour(num);
     cout << "What is the End Time Minute?" << endl;
-    cin >> num;
+    do{
+        cin >> num;
+        if(num < 0 || num > 60){
+            cout << "Not a valid Minute... Please use numbers from 0 to 59" << endl;
+            cout << "What is the Start Time Minute?" << endl;
+        }
+    } while(num < 0 || num > 60);
     timer.time_SetMinute(num);
     time.dt_SetEnd(timer);
     appoint.appt_setPeriod(time);
-    this->cont_setAppt(appoint); 
+    this->cont_setAppt(appoint);
+    count++;
 }
 
 void Container :: cont_setAppt(Appt appoint){
     cout << Schedule[count].appt_getName();
     Schedule[count].appt_setName(appoint.appt_getName());
     Schedule[count].appt_setPeriod(appoint.appt_getPeriod());
-    //Schedule[count]Appt(appoint.appt_getName(),appoint.appt_getPeriod());
     cout << Schedule[count].appt_getName() << endl;
     Schedule[count].appt_displayPeriod();
-    count++;
 }
 void Container :: cont_findAppt(){
+
+    char input;
+    bool flag = false;
+    cout << "Do you want to search by (N)ame, (D)ay, or (T)ime?" << endl;
+    cin >> input;
+    while(!flag){
+        switch(input){
+            case 'n':
+                this->cont_findByName();
+                cout << "Do you want to search again? (press 'q' to exit)" << endl;
+                cin >> input;
+                break;
+            case 'd':
+                this->cont_findByDay();
+                cout << "Do you want to search again? (press 'q' to exit)" << endl;
+                cin >> input;
+                break;
+            case 't':
+                this->cont_findByTime();
+                cout << "Do you want to search again? (press 'q' to exit)" << endl;
+                cin >> input;
+                break;
+            case 'q':
+                flag = true;
+                break;
+            default:
+                cout << "Please pick a valid command (n,d,t)" << endl;
+                cout << "Do you want to search by (N)ame, (D)ay, or (T)ime?" << endl;
+                cin >> input;
+                break;
+        }
+    }
 }
+
+void Container :: cont_findByName(){
+    string n;
+    bool flag = false;
+    cout << "\t\tSearching by Name\t\t" << endl;
+    cout << "What is the name of the Professor for the appointment?" << endl;
+    cin >> n;
+    cout << "Searching for Appointments with the following name " << n << endl;
+    for(int i =0; i < count; i++){
+        if(n == Schedule[i].appt_getName()){
+            Schedule[i].appt_displayAppt(i+1);
+            flag = true;
+        }
+    }
+    if(!flag){
+        cout << "Sorry. We could not find any appointments matching " << n << endl;
+    }
+
+}
+void Container :: cont_findByDay(){
+    Day day;
+    bool flag = false;
+    cout << "\t\tSearching by Day\t\t" << endl;
+    cout << "What is the day of the appointment?" << endl;
+    cin >> day;
+    cout << "Searching for Appointments on the following day " << day << endl;
+    for(int i = 0; i < count; i++){
+        if(day == (Schedule[i].appt_getPeriod()).dt_GetDay()){
+            Schedule[i].appt_displayAppt(i+1);
+            flag = true;
+        }
+    }
+    if(!flag){
+        cout << "Sorry. We could not find any appointments matching " << day << endl;
+    }
+}
+void Container :: cont_findByTime(){
+    int hour;
+    bool flag = false;
+    cout << "\t\tSearching by Start Time\t\t" << endl;
+    cout << "What is the approximate start hour of the appointment? (+/-3 hours)" << endl;
+    cin >> hour;
+    cout << "Searching for Appointments around the following hour " << hour << endl;
+    for(int i = 0; i < count; i++){
+       if(hour-3 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
+            hour-2 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour()) ||
+            hour-1 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())|| 
+            hour == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
+            hour+1 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
+            hour+2 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
+            hour+3 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())){
+           Schedule[i].appt_displayAppt(i+1);
+           flag = true;
+       }
+    }
+    if(!flag){
+        cout << "Sorry. We could not find any appointments matching a start time around "<< hour << endl;
+    }
+}
+
+
 
 void Container :: cont_cancelAppt(){
 }

@@ -10,7 +10,7 @@ Display :: Display(char input){
     this->disp_setInput(input);
 }
 
-void Display :: init_Menu(){
+void Display :: init_Menu(Container appt){
     bool flag = false;
     cout << endl << endl << endl << endl << endl << endl << endl << endl;
     cout << "\t\t\tBuild Your Schedule\t\t\t" << endl;
@@ -22,38 +22,37 @@ void Display :: init_Menu(){
     cout << "-  (D)isplay Appointment(s)" << endl << endl;
     cout << "-  (Q)uit" << endl << endl;
     cin >> input;
-    this->selection();
+    this->selection(appt);
 }
 
-void Display :: selection(){
-    Container appt;
+void Display :: selection(Container appt){
     while(true){
         switch(input){
             case 'm':
                 cout << "Making a new Appointment" << endl;
                 cout << "________________________________________________________________________________" << endl << endl << endl;
                 appt.cont_makeAppt();
-                this->init_Menu();
+                this->init_Menu(appt);
                 break;
             case 'f':
                 cout << "Finding a new Appointment" << endl;
                 appt.cont_findAppt();
-                this->init_Menu();
+                this->init_Menu(appt);
                 break;
             case 'c':
                 cout << "Cancel an Appointment" << endl;
                 appt.cont_cancelAppt();
-                this->init_Menu();
+                this->init_Menu(appt);
                 break;
             case 'h': 
                 cout << "Change an Appointment" << endl;
                 appt.cont_changeAppt();
-                this->init_Menu();
+                this->init_Menu(appt);
                 break;
             case 'd': 
                 cout << "Display Appointment" << endl;
                 appt.cont_disp();
-                this->init_Menu();
+                this->init_Menu(appt);
                 break;
             case 'q':
                 exit(1);
