@@ -35,7 +35,7 @@ void Appt :: appt_displayPeriod(){
 }
 
 void Appt :: appt_displayAppt(int count){
-    cout << count << ' ';
+    cout << count << '.' << ' ';
     cout << name << ' ';
     period.dt_Display();
 }
@@ -54,9 +54,12 @@ void Container :: cont_setCount(int cnt){
 }
 
 bool Container :: is_number(const string s){
-    string::const_iterator it = s.begin();
-    while (it != s.end() && isdigit(*it)) ++it;
-    return !s.empty() && it == s.end();
+    for(int i = 0; i< s.length(); i++){
+        if(isdigit(s[i])){
+            return true;
+        }
+    }
+    return false;
 }
 
 void Container :: cont_makeAppt(){
@@ -443,7 +446,7 @@ void Container :: cont_changeStart(int i){
     while(!flag){
         if(((Schedule[i-1].appt_getPeriod()).dt_GetEnd()).time_GetHour() < hour){
             cout << "Not a valid hour. Please use an hour that is less than " 
-                << Schedule[i-1].appt_getPeriod().dt_GetEnd().time_GetHour();
+                << Schedule[i-1].appt_getPeriod().dt_GetEnd().time_GetHour() << endl;
             cout << "Input new start hour" << endl;
             cin >> hour;
         }

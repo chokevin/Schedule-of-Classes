@@ -411,34 +411,87 @@ Boolean DaTime :: dt_Overlap(DaTime b)
     int aday, bday, check, hour;
     switch(this->dt_GetDay()){
         case 'm':  aday = 1;
+                   break;
         case 't':  aday = 2;
+                   break;
         case 'w':  aday = 3;
+                   break;
         case 'r':  aday = 4;
+                   break;
         case 'f':  aday = 5;
+                   break;
+        case 's':  aday = 6;
+                   break;
+        case 'u':  aday = 7;
+                   break;
     }
     switch(b.dt_GetDay()){
         case 'm':  bday = 1;
+                   break;
         case 't':  bday = 2;
+                   break;
         case 'w':  bday = 3;
+                   break;
         case 'r':  bday = 4;
+                   break;
         case 'f':  bday = 5;
+                   break;
+        case 's':  bday = 6;
+                   break;
+        case 'u':  bday = 7;
+                   break;
     }
     check = aday-bday;
     hour = start.time_Difference(b.start);
     if(check != 0){
         return FALSE;
     }
-    if(check == 0){
-        if(start.time_Equal(b.start) && start.time_LessThan(b.start) ){
-            return TRUE;
-        }
-        if(end.time_Equal(b.start) 
-                && start.time_LessThan(b.start)){
-            return TRUE;
-        }
-        return FALSE;
-    }
 
+    if(check == 0){
+        if(start.time_GetHour() == b.start.time_GetHour() && start.time_GetMinute() == b.start.time_GetMinute()){
+        return TRUE;
+        }
+        if(end.time_GetHour() == b.end.time_GetHour() && end.time_GetMinute() == b.start.time_GetMinute()){
+        return TRUE;
+        }
+        if(b.start.time_GetHour() > end.time_GetHour()){
+            return FALSE;
+        }
+        if(b.start.time_GetHour() == end.time_GetHour()){
+            if(b.start.time_GetMinute() > end.time_GetMinute()){
+                return FALSE;
+            }
+            if(b.start.time_GetMinute() == end.time_GetMinute()){
+                return TRUE;
+            }
+            if(b.start.time_GetMinute() < end.time_GetMinute()){
+                if(b.end.time_GetHour() > start.time_GetHour()){
+                    return TRUE;
+                }
+            }
+            if(b.end.time_GetHour() == start.time_GetHour()){
+                if(start.time_GetMinute() > b.end.time_GetMinute()){
+                    return FALSE;
+                }
+                if(start.time_GetMinute() == b.end.time_GetMinute()){
+                    return TRUE;
+                }
+                if(start.time_GetMinute() < b.end.time_GetMinute()){
+                    return TRUE;
+                }
+            }
+        }
+            if(b.start.time_GetHour() < end.time_GetHour()){
+                if(b.end.time_GetHour() > start.time_GetHour()){
+                    return TRUE;
+                }
+                if(b.end.time_GetHour() == start.time_GetHour()){
+                    if(start.time_GetHour() > b.end.time_GetHour()){
+                        return FALSE;
+                    }
+                }
+            }
+}
 
 #ifdef DEBUG
     fprintf(stderr, "\tExit dt_Overlap\n");
