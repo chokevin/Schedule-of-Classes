@@ -64,37 +64,14 @@ void Container :: cont_makeAppt(){
 
     cout << "What is the Professor's Name?" << endl;
     cin >> namae;
+    namae[0] = toupper(namae[0]);
     appoint.appt_setName(namae);
     cout << "What day is this appointment on (m,t,w,r,f,s,u)?" << endl;
-    while(!flag){
-        cin >> day;
-        switch(day){
-            case 'm':
-                flag = true;
-                break;
-            case 't':
-                flag = true;
-                break;
-            case 'w':
-                flag = true;
-                break;
-            case 'r':
-                flag = true;
-                break;
-            case 'f':
-                flag = true;
-                break;
-            case 's':
-                flag = true;
-                break;
-            case 'u':
-                flag = true;
-                break;
-            default:
-                cout << "Not a valid day! Try Again!" << endl;
-                cout << "What day is this appointment on (m,t,w,r,f,s,u)?" << endl;
-                break;
-        }
+    cin >> day;
+    while(!cont_validDay(day)){
+        cout << "Not a valid day! Try Again!" << endl;
+        cout << "What day is this appointment on (m,t,w,r,f,s,u)?" << endl;
+        cin >> day;    
     }
     time.dt_SetDay(day);
     cout << "What is the Start Time Hour?" << endl;
@@ -117,22 +94,41 @@ void Container :: cont_makeAppt(){
     timer.time_SetMinute(num);
     time.dt_SetStart(timer);
     cout << "What is the End Time Hour?" << endl;
+    flag = false;
     do{
         cin >> num;
-        if(num < 0 || num > 23){
-            cout << "Not a valid hour... Please use numbers from 0 to 23" << endl;
+       if(num < timer.time_GetHour()){
+            cout << "This End hour is before the start hour.. Please use numbers above " 
+                <<timer.time_GetHour() << endl;
             cout << "What is the End Time Hour?" << endl;
         }
-    } while(num > 23 || num < 0);
+       else if(num < 0 || num > 23){
+           cout << "Not a valid hour... Please use numbers from 0 to 23" << endl;
+           cout << "What is the End Time Hour?" << endl;
+       }
+       else{
+            flag = true;
+        }
+    } while(!flag);
     timer.time_SetHour(num);
     cout << "What is the End Time Minute?" << endl;
+    flag = false;
     do{
         cin >> num;
-        if(num < 0 || num > 60){
-            cout << "Not a valid Minute... Please use numbers from 0 to 59" << endl;
-            cout << "What is the Start Time Minute?" << endl;
+        if(time.dt_GetStart().time_GetHour() == timer.time_GetHour() 
+                && num < timer.time_GetMinute()){
+            cout << "Not a valid Minute for this hour... Please us numbers above "
+                << timer.time_GetMinute() << endl;
+            cout << "What is the End Time Minute?" << endl;
         }
-    } while(num < 0 || num > 60);
+        else if(num < 0 || num > 60){
+            cout << "Not a valid minute... Please use numbers from 0 to 59" << endl;
+            cout << "What is the End Time Minute?" << endl;
+        }
+        else{
+            flag = true;
+        }
+    } while(!flag);
     timer.time_SetMinute(num);
     time.dt_SetEnd(timer);
     appoint.appt_setPeriod(time);
@@ -151,9 +147,7 @@ void Container :: cont_makeAppt(){
 }
 
 bool Container :: conflict(){
-    cout << "the count is " << count << endl;
     for(int i= 0; i < count-1; i++){
-       cout << "looping" << endl;
         if(Schedule[count-1].appt_getPeriod().dt_Overlap(Schedule[i].appt_getPeriod())){
             return true;
         }
@@ -341,19 +335,46 @@ void Container :: cont_changeAppt(){
     }
 }
 
+bool Container :: cont_validDay(Day day){
+    switch(day){
+        case 'm':
+            return true;
+        case 't':
+            return true;
+        case 'w':
+            return true;
+        case 'r':
+            return true;
+        case 'f':
+            return true;
+        case 's':
+            return true;
+        case 'u':
+            return true;
+        default:
+            return false;
+    }
+}
+
 void Container :: cont_changeName(int i){
     string n;
     cout << "Input new name" << endl;
     cin >> n;
+    n[0] = toupper(n[0]);
     Schedule[i-1].appt_setName(n);
 }
 
 void Container :: cont_changeDay(int i){
     Day day;
     DaTime new_datime;
-
+    bool flag = false;
     cout << "Input new day" << endl;
     cin >> day;
+    while(!cont_validDay(day)){
+        cout << "Not a valid day! Please use a valid choice (m,t,w,r,f,s,u)";
+        cout << "Input new day" << endl;
+        cin >> day;
+    }
     new_datime.dt_SetDay(day);
     new_datime.dt_SetStart((Schedule[i-1].appt_getPeriod()).dt_GetStart());
     new_datime.dt_SetEnd((Schedule[i-1].appt_getPeriod()).dt_GetEnd());
@@ -363,6 +384,7 @@ void Container :: cont_changeDay(int i){
 void Container :: cont_changeStart(int i){
     Time Start;
     int hour, min;
+    bool flag;
     DaTime new_datime;
     cout << "Input new start hour" << endl;
     cin >> hour;
@@ -396,6 +418,7 @@ void Container :: cont_changeEnd(int i){
 
 
 void Container :: cont_disp(){
+    cout << endl << endl << endl;
     cout << "\t\tYour Schedule\t\t" << endl;
     cout << "_______________________________________________________________________" << endl;
     for(int i = 0; i < count; i++){  
