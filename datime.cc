@@ -114,7 +114,6 @@ void DaTime :: dt_SetDay(Day nday)
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_SetDay\n");
 #endif
-
     day = nday;
 
 #ifdef DEBUG
@@ -127,7 +126,8 @@ void DaTime :: dt_SetStart(Time nstart)
 #ifdef DEBUG
     fprintf(stderr,"\tEnter dt_SetStart\n");
 #endif
-    start = nstart;
+    start.time_SetHour(nstart.time_GetHour());
+    start.time_SetMinute(nstart.time_GetMinute());
 #ifdef DEBUG
     fprintf(stderr, "\tExit dt_SetStart\n");
 #endif
@@ -425,7 +425,7 @@ Boolean DaTime :: dt_Overlap(DaTime b)
     }
     check = aday-bday;
     hour = start.time_Difference(b.start);
-    if(day != 0){
+    if(check != 0){
         return FALSE;
     }
     if(check == 0){

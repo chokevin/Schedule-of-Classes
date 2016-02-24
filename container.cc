@@ -137,22 +137,24 @@ void Container :: cont_makeAppt(){
     time.dt_SetEnd(timer);
     appoint.appt_setPeriod(time);
     this->cont_setAppt(appoint);
+    count++;
     if(count == 0){
         cout << "Appointment has been added!" << endl;
-        count++;
     }
-    else if(count > 0 && conflict(count)){
+    else if(conflict()){
         cout << "There is an appointment conflict!" << endl;
+        count--;
     }
-    else if(count > 0 && !conflict(count)){
+    else{
         cout << "Appointment has been added!" << endl;
-        count++;
     }
 }
 
-bool Container :: conflict(int count){
-    for(int i= 0; i < count; i++){
-        if(Schedule[count].appt_getPeriod().dt_Overlap(Schedule[i].appt_getPeriod())){
+bool Container :: conflict(){
+    cout << "the count is " << count << endl;
+    for(int i= 0; i < count-1; i++){
+       cout << "looping" << endl;
+        if(Schedule[count-1].appt_getPeriod().dt_Overlap(Schedule[i].appt_getPeriod())){
             return true;
         }
     }
@@ -165,7 +167,7 @@ void Container :: cont_setAppt(Appt appoint){
     Schedule[count].appt_setPeriod(appoint.appt_getPeriod());
     cout << Schedule[count].appt_getName() << endl;
     Schedule[count].appt_displayPeriod();
-    
+
 }
 void Container :: cont_findAppt(){
 
@@ -245,16 +247,16 @@ void Container :: cont_findByTime(){
     cin >> hour;
     cout << "Searching for Appointments around the following hour " << hour << endl;
     for(int i = 0; i < count; i++){
-       if(hour-3 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
-            hour-2 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour()) ||
-            hour-1 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())|| 
-            hour == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
-            hour+1 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
-            hour+2 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
-            hour+3 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())){
-           Schedule[i].appt_displayAppt(i+1);
-           flag = true;
-       }
+        if(hour-3 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
+                hour-2 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour()) ||
+                hour-1 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())|| 
+                hour == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
+                hour+1 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
+                hour+2 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())||
+                hour+3 == (((Schedule[i].appt_getPeriod()).dt_GetStart()).time_GetHour())){
+            Schedule[i].appt_displayAppt(i+1);
+            flag = true;
+        }
     }
     if(!flag){
         cout << "Sorry. We could not find any appointments matching a start time around "<< hour << endl;
@@ -289,8 +291,8 @@ void Container :: cont_changeAppt(){
     cout << "Which appointment do you want to change?" << endl;
     while(!flag){
         cin >> i;
-         if(i < 0 || i > count || i > MAX_SIZE){
-             cout << "This is not a valid appointment to cancel. Please choose an appointment less than " << count << endl;
+        if(i < 0 || i > count || i > MAX_SIZE){
+            cout << "This is not a valid appointment to cancel. Please choose an appointment less than " << count << endl;
         }
         else{
             flag = true;
@@ -301,40 +303,40 @@ void Container :: cont_changeAppt(){
     flag = false;
     while(!flag){
         switch(input){
-        case 'n':
-            this->cont_changeName(i);
-            cout << "Do you want to change something else? (press 'q' to cancel)" 
-                << endl;
-            cin >> input;
-            break;
-        case 'd':
-            this->cont_changeDay(i);
-            cout << "Do you want to change something else? (press 'q' to cancel)"
-                << endl;
-            cin >> input;
-            break;
-        case 's':
-            this->cont_changeStart(i);
-            cout << "Do you want to change something else? (press 'q' to cancel)" 
-                << endl;
-            cin >> input;
-            break;
-        case 'e':
-            this->cont_changeEnd(i);
-            cout << "Do you want to change something else? (press 'q' to cancel)" 
-                << endl;
-            cin >> input;
-            break;
-        case 'q':
-            flag = true;
-            break;
-        default:
-            cout << "Please pick a valid command (n,d,s,e,q)" << endl;
-            cout << 
-                "Would you like to edit the (N)ame, (D)ay, (S)tart Time, or (E)nd Time?" 
-                << endl;
-            cin >> input;
-            break;
+            case 'n':
+                this->cont_changeName(i);
+                cout << "Do you want to change something else? (press 'q' to cancel)" 
+                    << endl;
+                cin >> input;
+                break;
+            case 'd':
+                this->cont_changeDay(i);
+                cout << "Do you want to change something else? (press 'q' to cancel)"
+                    << endl;
+                cin >> input;
+                break;
+            case 's':
+                this->cont_changeStart(i);
+                cout << "Do you want to change something else? (press 'q' to cancel)" 
+                    << endl;
+                cin >> input;
+                break;
+            case 'e':
+                this->cont_changeEnd(i);
+                cout << "Do you want to change something else? (press 'q' to cancel)" 
+                    << endl;
+                cin >> input;
+                break;
+            case 'q':
+                flag = true;
+                break;
+            default:
+                cout << "Please pick a valid command (n,d,s,e,q)" << endl;
+                cout << 
+                    "Would you like to edit the (N)ame, (D)ay, (S)tart Time, or (E)nd Time?" 
+                    << endl;
+                cin >> input;
+                break;
         }
     }
 }
@@ -348,39 +350,54 @@ void Container :: cont_changeName(int i){
 
 void Container :: cont_changeDay(int i){
     Day day;
+    DaTime new_datime;
+
     cout << "Input new day" << endl;
     cin >> day;
-    (Schedule[i-1].appt_getPeriod()).dt_SetDay(day);
+    new_datime.dt_SetDay(day);
+    new_datime.dt_SetStart((Schedule[i-1].appt_getPeriod()).dt_GetStart());
+    new_datime.dt_SetEnd((Schedule[i-1].appt_getPeriod()).dt_GetEnd());
+    Schedule[i-1].appt_setPeriod(new_datime);
 }
 
 void Container :: cont_changeStart(int i){
     Time Start;
-    int time;
+    int hour, min;
+    DaTime new_datime;
     cout << "Input new start hour" << endl;
-    cin >> time;
-    Start.time_SetHour(time);
+    cin >> hour;
+    Start.time_SetHour(hour);
     cout << "Input new start minute" << endl;
-    cin >> time;
-    Start.time_SetMinute(time);
-    (Schedule[i-1].appt_getPeriod()).dt_SetStart(Start);
+    cin >> min;
+    Start.time_SetMinute(min);
+    new_datime.dt_SetDay((Schedule[i-1].appt_getPeriod()).dt_GetDay());
+    new_datime.dt_SetStart(Start);
+    new_datime.dt_SetEnd((Schedule[i-1].appt_getPeriod()).dt_GetEnd());
+    Schedule[i-1].appt_setPeriod(new_datime);
+
 }
 
 void Container :: cont_changeEnd(int i){
     Time End;
     int time;
+    DaTime new_datime;
     cout << "Input new End hour" << endl;
     cin >> time;
     End.time_SetHour(time);
     cout << "Input new End minute" << endl;
     cin >> time;
     End.time_SetMinute(time);
-    (Schedule[i-1].appt_getPeriod()).dt_SetEnd(End);
+    new_datime.dt_SetDay((Schedule[i-1].appt_getPeriod()).dt_GetDay());
+    new_datime.dt_SetStart((Schedule[i-1].appt_getPeriod()).dt_GetStart());
+    new_datime.dt_SetEnd(End);
+    Schedule[i-1].appt_setPeriod(new_datime);
+
 }
 
 
 void Container :: cont_disp(){
-        cout << "\t\tYour Schedule\t\t" << endl;
-        cout << "_______________________________________________________________________" << endl;
+    cout << "\t\tYour Schedule\t\t" << endl;
+    cout << "_______________________________________________________________________" << endl;
     for(int i = 0; i < count; i++){  
         Schedule[i].appt_displayAppt(i+1);
     }
