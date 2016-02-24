@@ -7,7 +7,7 @@
  *  Mod:
  */
 
-/*  Test driver for DaTime data type
+/*  Test driver the Schedule of classes
  */
 
 

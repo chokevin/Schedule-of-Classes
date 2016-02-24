@@ -35,6 +35,7 @@ class Container{
         void cont_changeStart(int);
         void cont_changeEnd(int);
         bool cont_validDay(Day);
+        bool is_number(const string s);
         void cont_disp();
         bool conflict();
         void cont_setSchedule(vector <Appt> &Sch);
