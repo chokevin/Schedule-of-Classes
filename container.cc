@@ -71,7 +71,8 @@ void Container :: cont_makeAppt(){
     cout << "What is the Professor's Name?" << endl;
     cin >> namae;
     while(is_number(namae)){
-        cout << "Not a valid name. Please try again with alphabets only." << endl;
+        cout << "Not a valid name. Please try again with letters only." << endl;
+        cout << "What is the Professor's Name?" << endl;
         cin >> namae;
     }
     namae[0] = toupper(namae[0]);
@@ -86,7 +87,12 @@ void Container :: cont_makeAppt(){
     time.dt_SetDay(day);
     cout << "What is the Start Time Hour?" << endl;
     do{
-        cin >> num;
+        while(!(cin >> num)){
+            cout << "Not a valid number... please use numbers.." << endl;
+            cout << "What is the Start Time Hour?" << endl;
+            cin.clear();
+            cin.ignore(1);
+        }
         if(num < 0 || num > 23){
             cout << "Not a valid Hour.. Please use numbers from 0 to 23" << endl;
             cout << "What is the Start Time Hour?" << endl;
@@ -95,7 +101,12 @@ void Container :: cont_makeAppt(){
     timer.time_SetHour(num);
     cout << "What is the Start Time Minute?" << endl;
     do{
-        cin >> num;
+        while(!(cin >> num)){
+            cout << "Not a valid number... please use numbers.." << endl;
+            cout << "What is the Start Time Minute?" << endl;
+            cin.clear();
+            cin.ignore(1);
+        }
         if(num < 0 || num > 60){
             cout << "Not a valid Minute... Please use numbers from 0 to 59" << endl;
             cout << "What is the Start Time Minute?" << endl;
@@ -106,7 +117,12 @@ void Container :: cont_makeAppt(){
     cout << "What is the End Time Hour?" << endl;
     flag = false;
     do{
-        cin >> num;
+        while(!(cin >> num)){
+            cout << "Not a valid number... please use numbers.." << endl;
+            cout << "What is the End Time Hour?" << endl;
+            cin.clear();
+            cin.ignore(1);
+        }
         if(num < timer.time_GetHour()){
             cout << "This End hour is before the start hour.. Please use numbers above " 
                 <<timer.time_GetHour() << endl;
@@ -124,7 +140,12 @@ void Container :: cont_makeAppt(){
     cout << "What is the End Time Minute?" << endl;
     flag = false;
     do{
-        cin >> num;
+        while(!(cin >> num)){
+            cout << "Not a valid number... please use numbers.." << endl;
+            cout << "What is the End time minute?" << endl;
+            cin.clear();
+            cin.ignore(1);
+        }
         if(time.dt_GetStart().time_GetHour() == timer.time_GetHour() 
                 && num < timer.time_GetMinute()){
             cout << "Not a valid Minute for this hour... Please us numbers above "
